@@ -1,0 +1,7 @@
+{% extends "contas/base.html" %}
+
+{% block content %}
+  <a href="{% url controle.views.new %}">Novo</a>
+
+  {{ table.as_html }}
+{% endblock %}
