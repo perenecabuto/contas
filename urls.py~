@@ -9,7 +9,7 @@ from django.views.generic.simple import redirect_to
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', redirect_to, {'url': '/home'}, name='home'),
+    url(r'^$', redirect_to, {'url': '/home'}),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^controle/', include('controle.urls')),

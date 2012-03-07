@@ -42,7 +42,7 @@ def save(request, id=None):
 
   try:
     form.save()
-    return redirect(index)
+    return redirect(edit, id=conta.id)
   except:
     return new(request)
 
