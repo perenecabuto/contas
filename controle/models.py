@@ -10,7 +10,7 @@ class Controle(models.Model):
   mes = models.IntegerField(unique=True)
 
   def __unicode__(self):
-    return "%02d/%04d" % (self.mes, self.ano)
+    return "%02d-%04d" % (self.mes, self.ano)
 
   @classmethod
   def get_current(self):
@@ -24,6 +24,9 @@ class Conta(models.Model):
   pago = models.BooleanField()
   valor = models.DecimalField(max_digits=5, decimal_places=2)
   controle = models.ForeignKey(Controle, blank=True)
+
+  def __unicode__(self):
+    return self.nome
 
   def status(self):
     pass
