@@ -9,15 +9,16 @@ from errno import ENOENT
 from stat import S_IFDIR, S_IFREG
 from time import time
 
-from fuse import FUSE, FuseOSError, Operations, LoggingMixIn
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-from django.core.management import setup_environ
-from contas import settings
-setup_environ(settings)
+from fuse import FUSE
+from fuse import FuseOSError
+from fuse import Operations
+from fuse import LoggingMixIn
 
 from contas.controle.models import Controle
 #from contas.controle.models import Conta
+
+from django.core.management.base import BaseCommand
+#from django.core.management.base import CommandError
 
 
 def parse_controle(path):
@@ -32,7 +33,19 @@ def parse_arquivo(path):
     return re.search('(\d{,2})-(\d{4})/([^/]+)/([^/]+)?$', path)
 
 
-class ContaFs(LoggingMixIn, Operations):
+class Command(BaseCommand):
+    def handle(self, *args, **kwargs):
+        if not args:
+            print 'usage: %s <mountpoint>' % sys.argv[0]
+            exit(1)
+
+        path = args[0]
+
+        print " * Mounting FS on %s" % path
+        FUSE(ContaFs(), path, foreground=True, nothreads=True)
+
+
+class ContaFs(Operations, LoggingMixIn):
     """ blah blah blah """
 
     def init(self, path):
@@ -41,7 +54,7 @@ class ContaFs(LoggingMixIn, Operations):
     def create(self, path, mode):
         print "create"
         self.files[path] = dict(st_mode=(S_IFREG | mode), st_nlink=1,
-                st_size=0, st_ctime=time(), st_mtime=time(), st_atime=time())
+            st_size=0, st_ctime=time(), st_mtime=time(), st_atime=time())
         self.fd += 1
         return self.fd
 
@@ -138,11 +151,3 @@ class ContaFs(LoggingMixIn, Operations):
         self.data[path] = self.data[path][:offset] + data
         self.files[path]['st_size'] = len(self.data[path])
         return len(data)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print 'usage: %s <mountpoint>' % sys.argv[0]
-        exit(1)
-
-    fuse = FUSE(ContaFs(), sys.argv[1], foreground=True)

@@ -5,7 +5,6 @@ from django.db.models import signals
 from django.dispatch import receiver
 
 
-# Create your models here.
 class Controle(models.Model):
     ano = models.IntegerField()
     mes = models.IntegerField()
