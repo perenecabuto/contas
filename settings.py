@@ -12,12 +12,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db/contas.sqlite3', # Or path to database file if using sqlite3.
-        'USER': '', # Not used with sqlite3.
-        'PASSWORD': '', # Not used with sqlite3.
-        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'db/contas.sqlite3',  # Or path to database file if using sqlite3.
+        'USER': '',  # Not used with sqlite3.
+        'PASSWORD': '',  # Not used with sqlite3.
+        'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',  # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -134,8 +134,6 @@ INSTALLED_APPS = (
     'contas.controle',
     'contas.home',
     'contas',
-
-    'env',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -146,18 +144,30 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
+
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
-}
+    },
 
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            #'formatter': 'brief',
+            'level': DEBUG,
+            'stream': 'ext://sys.stdout',
+        },
+
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            #'formatter': 'precise',
+            'filename': 'log/server.log',
+            'maxBytes': '5000000',
+            'level': DEBUG,
+            'backupCount': '3',
+        },
+    },
+}

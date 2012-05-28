@@ -1,17 +1,20 @@
 # -*- encoding : utf-8 -*-
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
 
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from django.utils import unittest
+from django.forms.models import model_to_dict
+from controle.models import Controle
+#from controle.models import Conta
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class ControleTestCase(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_criar_novo_controle(self):
+        expected_attrs = {'ano': 2012, 'mes': 3}
+        Controle.objects.create(**expected_attrs)
+        gotten_attrs = model_to_dict(Controle.objects.get(**expected_attrs))
+        del gotten_attrs['id']
+
+        self.assertDictEqual(expected_attrs, gotten_attrs)
