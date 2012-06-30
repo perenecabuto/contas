@@ -1,41 +1,16 @@
 {% extends "contas/base.html" %}
 
-{% load test %}
-
-
-{% block head %}
-<script type="text/javascript">
-$(window).ready(function() {
-  $('.onmodalbox').click(function(e) {
-    e.preventDefault();
-    ModalBox.show();
-
-    $.ajax({
-      url: this.href,
-      success: function(content){
-        $('#modal-box-container').html(content);
-      }
-    });
-    return false;
-  });
-});
-</script>
-{% endblock %}
-
 {% block content %}
-{% shout "%s" %}
-  <a href="{% url controle.views.new %}" class="onmodalbox">Novo</a>
+    <a href="{% url controle.views.novo %}">Novo</a>
 
-<table>
-  {% for conta in contas %}
-    <tr>
-    <td>{{ conta.nome }}</td>
-    <td>{{ conta.valor }}</td>
-    <td>
-      <a href="{% url controle.views.edit id=conta.id %}" class="onmodalbox">editar</a>
-    </td>
-    </tr>
-    
-  {% endfor %}
-</table>
+    <table>
+      {% for controle in controles %}
+        <tr>
+            <td>{{ controle.mes }}/{{ controle.ano }}</td>
+        <td>
+          <a href="{% url controle.views.editar mes=controle.mes ano=controle.ano %}">editar</a>
+        </td>
+        </tr>
+      {% endfor %}
+    </table>
 {% endblock %}

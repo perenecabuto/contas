@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 from django.db import models
-from datetime import datetime
-from django.db.models import signals
-from django.dispatch import receiver
+from datetime import date, timedelta
 
 
 class Controle(models.Model):
@@ -14,27 +12,45 @@ class Controle(models.Model):
 
     @classmethod
     def get_current(self):
-        return self.objects.get_or_create(ano=datetime.now().year, mes=datetime.now().month)[0]
+        return self.objects.get_or_create(ano=date.today().year, mes=date.today().month)[0]
+
+    class Meta:
+        unique_together = ('ano', 'mes')
+        ordering = ['-ano', '-mes']
 
 
 class Conta(models.Model):
     nome = models.CharField(max_length=128)
+    dia_vencimento = models.PositiveIntegerField(choices=((i, i) for i in range(1, 32)))
     arquivo = models.FileField(upload_to='media/contas/%Y-%m-%d', blank=True, null=True)
-    data_pagamento = models.DateField()
-    pago = models.BooleanField()
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    data_pagamento = models.DateField(blank=True, null=True)
+    valor = models.DecimalField(max_digits=20, decimal_places=2)
     controle = models.ForeignKey(Controle, blank=True)
+
+    class Meta:
+        unique_together = ('nome', 'controle')
 
     def __unicode__(self):
         return self.nome
 
     def status(self):
-        pass
+        status = 'pagamento pendente, vence em %s' % self.data_vencimento.strftime('%d/%m/%Y')
 
+        if self.pago():
+            status = 'pago'
+        elif self.venceu():
+            status = 'venceu'
 
-@receiver(signals.post_init, sender=Conta)
-def configura_controle(sender, **kwargs):
-    conta = kwargs['instance']
+        return status
 
-    if not conta.id:
-        conta.controle = Controle.get_current()
+    @property
+    def data_vencimento(self):
+        delta = timedelta(days=self.dia_vencimento - 1)
+        data_vencimento = date(year=self.controle.ano, month=self.controle.mes, day=1) + delta
+        return data_vencimento
+
+    def pago(self):
+        return bool(self.data_pagamento)
+
+    def venceu(self):
+        return bool(date.today() > self.data_vencimento)

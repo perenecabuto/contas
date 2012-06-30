@@ -1,0 +1,30 @@
+{% extends "contas/base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+$(window).ready(function() {
+  $('.onmodalbox').click(function(e) {
+    ModalBox.load(this.href);
+    return false;
+  });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url controle.views.nova_conta ano=controle.ano mes=controle.mes %}" class="onmodalbox">Novo</a>
+
+    <table>
+      {% for conta in contas %}
+        <tr>
+        <td>{{ conta.nome }}</td>
+        <td>{{ conta.valor }}</td>
+        <td>{{ conta.data_vencimento }}</td>
+        <td>{{ conta.status }}</td>
+        <td>
+          <a href="{% url controle.views.editar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}" class="onmodalbox">editar</a>
+        </td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}

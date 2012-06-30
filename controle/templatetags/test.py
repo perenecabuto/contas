@@ -1,5 +1,4 @@
 from django import template
-from django.shortcuts import render_to_response
 
 register = template.Library()
 
