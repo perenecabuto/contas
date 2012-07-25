@@ -91,6 +91,7 @@ INSTALLED_APPS = (
 
     'contas.controle',
     'contas.home',
+    'django_nodefs',
 )
 
 LOGGING = {
