@@ -10,11 +10,9 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^$', redirect_to, {'url': '/home'}, name='home'),
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^$', redirect_to, {'url': '/controle'}, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^controle/', include('controle.urls')),
-    url(r'^home/', include('home.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,7 +1,0 @@
-<form action="{% url controle.views.salvar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}"
-    method="post" enctype="multipart/form-data">
-
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Adicionar</button>
-</form>

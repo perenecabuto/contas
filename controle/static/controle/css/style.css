@@ -1,16 +1,16 @@
 @font-face {
     font-family: "minyanouvellerg";
-    src: url(minyanouvellerg.ttf) format(truetype);
+    src: url(../fonts/minyanouvellerg.ttf) format(truetype);
 }
 
 @font-face {
     font-family: "SimplyChalky";
-    src: url(SimplyChalky.ttf) format(truetype);
+    src: url(../fonts/SimplyChalky.ttf) format(truetype);
 }
 
 @font-face {
     font-family: "BlackBoard";
-    src: url(BlackBoard.ttf) format(truetype);
+    src: url(../fonts/BlackBoard.ttf) format(truetype);
 }
 
 body {
@@ -23,10 +23,11 @@ body {
 }
 
 h1.page-title {
-    font-family: "BlackBoard";
+    /*font-family: "BlackBoard";*/
     font-size: 80px;
     margin-bottom: 20px;
     font-weight: normal;
+    color: #444;
 }
 
 a {
@@ -57,7 +58,7 @@ a {
     margin: 0;
 }
 
-.action-items > ul li a {
+.action-items a {
     text-decoration: none;
     text-shadow: 1px 1px 0px #fff;
 }
@@ -126,6 +127,17 @@ a {
     padding: 5px;
     border-radius: 3px;
     cursor: pointer;
+    white-space: normal;
+}
+
+a.status-and-action,
+a.download-account,
+a.upload-account
+{
+    padding-top: 6px;
+    padding-right: 26px;
+    padding-bottom: 4px;
+    margin-right: 5px;
 }
 
 .status-and-action {
@@ -140,12 +152,36 @@ a {
 }
 
 .download-account {
-    background-image: url(download.png);
+    background-image: url(../img/download.png);
     background-repeat: no-repeat;
     background-position-y: -2px;
 }
 
 .upload-account {
-    background-image: url(upload.png);
+    background-image: url(../img/upload.png);
     background-repeat: no-repeat;
+}
+
+/* Form */
+.errorlist {
+    color: red;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+input[type=text], select {
+    min-width: 200px;
+}
+
+input[type=text] {
+    border: 1px solid #444;
+}
+
+label {
+    float: left;
+    width: 140px;
+}
+
+form {
+    margin-bottom: 20px;
 }

@@ -8,6 +8,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+WSGI_APPLICATION = 'conf.'
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -29,16 +31,15 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+# Media
 MEDIA_ROOT = 'media/'
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = ''
+# Static
+STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    'static/',
-)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -53,7 +54,7 @@ SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,7 +65,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'contas.urls'
+ROOT_URLCONF = 'conf.urls'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'conf.wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',

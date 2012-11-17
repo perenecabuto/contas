@@ -1,30 +1,92 @@
-{% extends "contas/base.html" %}
+{# load nodefs_tree #}
+
+{% extends "controle/base.html" %}
 
 {% block head %}
 <script type="text/javascript">
 $(window).ready(function() {
-  $('.onmodalbox').click(function(e) {
-    ModalBox.load(this.href);
-    return false;
-  });
+    $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+
+    $(".nova-conta").on('click', function() {
+        $("#form-nova-conta").show();
+        return false;
+    });
+
+    $(".cancelar-nova-conta").on('click', function() {
+        console.log(this);
+        $("#form-nova-conta").hide().clearForm();
+        return false;
+    });
+
+    $('input[type=button][href]').on('click', function() {
+        location.href = $(this).attr('href');
+    });
 });
 </script>
 {% endblock %}
 
-{% block content %}
-    <a href="{% url controle.views.nova_conta ano=controle.ano mes=controle.mes %}" class="onmodalbox">Novo</a>
+{% block left_container %}
+    {# nodefs_tree #}
+{% endblock %}
 
-    <table>
-      {% for conta in contas %}
-        <tr>
-        <td>{{ conta.nome }}</td>
-        <td>{{ conta.valor }}</td>
-        <td>{{ conta.data_vencimento }}</td>
-        <td>{{ conta.status }}</td>
-        <td>
-          <a href="{% url controle.views.editar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}" class="onmodalbox">editar</a>
-        </td>
-        </tr>
-      {% endfor %}
-    </table>
+{% block panel_title %}
+Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ controle.get_date|date:"Y" }}</strong>
+{% endblock %}
+
+{% block actions %}
+<ul>
+    <li>
+        <a href="" class="nova-conta">Novo</a>
+    </li>
+    <li>
+        <ul class="list-select-order">
+            <li>
+                <a href="#order-by-account-label">Ordem alfabética</a>
+            </li>
+
+            <li>
+                <a href="#order-by-priority">Por prioridade</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url controle.views.salvar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}"
+    id="form-nova-conta"
+    {% if not form.changed_data %}style="display: none"{% endif %}
+    method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="salvar-nova-conta">Salvar</button>
+    <input type="button" class="cancelar-nova-conta" value="Cancelar" />
+</form>
+
+<ul>
+{% for conta in contas %}
+    <li class="account">
+        <strong class="account-name" name="account_label">
+            {{ conta.nome }}
+            <span>R$ {{ conta.valor }}</span>
+        </strong>
+
+        <a class="{% if conta.arquivo %}download-account{% else %}upload-account{% endif %}" href="{{ conta.arquivo }}"></a>
+
+        {% if conta.pago %}
+        <input type="button" name="status_and_action" class="status-and-action" value="Pago dia {{ conta.data_pagamento|date:"d"}}" />
+        {% else %}
+
+        <input type="button" name="status_and_action" class="status-and-action" value="Registrar pagamento"
+            href='{% url controle.views.registrar_pagamento ano=controle.ano mes=controle.mes nome=conta.nome %}'
+        />
+
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
 {% endblock %}
