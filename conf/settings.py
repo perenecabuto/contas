@@ -94,7 +94,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'contas.controle',
-    'contas.home',
     'django_nodefs',
 )
 
