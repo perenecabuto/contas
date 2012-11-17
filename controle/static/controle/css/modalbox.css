@@ -1,0 +1,24 @@
+#modal-box-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+
+  background-color: transparent;
+  background-image: url(../img/black-op20.png);
+  background-repeat: repeat;
+}
+
+#modal-box {
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 50%;
+  max-height: 50%;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 2px solid #eee;
+  overflow: auto;
+}

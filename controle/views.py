@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
 from models import Controle, Conta
-from forms import ContaForm, ControleForm
+from forms import ContaForm, ControleForm, UploadContaForm
 from datetime import datetime
 
 
@@ -45,6 +45,26 @@ def novo(request, mes=datetime.now().month, ano=datetime.now().year):
     ctx.update(csrf(request))
 
     return render_to_response('controle/novo.html', ctx)
+
+
+@csrf_protect
+def upload_conta(request, mes, ano, nome):
+    conta = get_object_or_404(Conta, controle__ano=ano, controle__mes=mes, nome=nome)
+
+    if request.method == 'POST':
+        conta.arquivo = request.FILES.get('arquivo')
+        conta.save()
+
+        return redirect(
+            reverse(editar, kwargs={'mes': conta.controle.mes, 'ano': conta.controle.ano})
+        )
+    else:
+        form = UploadContaForm(request.POST, request.FILES, instance=conta)
+
+        ctx = {'form': form, 'conta': conta, 'controle': conta.controle}
+        ctx.update(csrf(request))
+
+        return render_to_response('controle/upload_conta.html', ctx)
 
 
 @csrf_protect
@@ -91,3 +111,4 @@ def registrar_pagamento(request, mes, ano, nome):
     return redirect(
         reverse(editar, kwargs={'mes': conta.controle.mes, 'ano': conta.controle.ano})
     )
+

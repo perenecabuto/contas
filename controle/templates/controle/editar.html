@@ -56,7 +56,7 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
 
 <form action="{% url controle.views.salvar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}"
     id="form-nova-conta"
-    {% if not form.changed_data %}style="display: none"{% endif %}
+    {% if not form.errors %}style="display: none"{% endif %}
     method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
@@ -74,7 +74,13 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
             <span>R$ {{ conta.valor }}</span>
         </strong>
 
-        <a class="{% if conta.arquivo %}download-account{% else %}upload-account{% endif %}" href="{{ conta.arquivo }}"></a>
+        {% if conta.arquivo %}
+        <a class="download-account" href="{{ conta.arquivo.url }}" target="_blank"></a>
+        {% else %}
+        <a class="upload-account openonmodalbox"
+            href='{% url controle.views.upload_conta ano=controle.ano mes=controle.mes nome=conta.nome %}'
+        ></a>
+        {% endif %}
 
         {% if conta.pago %}
         <input type="button" name="status_and_action" class="status-and-action" value="Pago dia {{ conta.data_pagamento|date:"d"}}" />

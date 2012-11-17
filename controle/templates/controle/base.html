@@ -8,13 +8,14 @@
     <link href="{% static "controle/css/reset.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "controle/css/style.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "controle/css/jquery-ui.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "controle/css/modalbox.css" %}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/widgets.css" %}"/>
 
     <script type="text/javascript" src="{% static "controle/js/jquery.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/jquery-ui.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/clear-form.js" %}"></script>
-
+    <script type="text/javascript" src="{% static "controle/js/modalbox.js" %}"></script>
 
     {% block head %}
     {% endblock %}
@@ -22,6 +23,10 @@
 
 <body>
 <h1 class="page-title">Contas</h1>
+
+<div id="modal-box-container" style="display:none">
+    <div id="modal-box"></div>
+</div>
 
 <section id="left-container">
 {% block left_container %}
