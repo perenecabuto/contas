@@ -43,7 +43,10 @@
     $(window).ready(function() {
         $('#tree').tree({
             autoOpen: 0,
-            autoEscape: false
+            autoEscape: false,
+            onCreateLi: function(node, $li) {
+                console.log(node, $li);
+            }
         });
     });
 </script>
