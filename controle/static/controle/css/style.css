@@ -40,6 +40,19 @@ a {
     margin-bottom: 30px;
 }
 
+#left-panel {
+    position: fixed;
+    top: 150px;
+    left: 0;
+    bottom: 0;
+    margin-left: 30px;
+    width: 200px;
+}
+
+section {
+    margin-left: 200px;
+}
+
 .topic {
     color: #E6E6E6;
     background-color: #444;

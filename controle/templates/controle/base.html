@@ -17,19 +17,37 @@
     <script type="text/javascript" src="{% static "controle/js/clear-form.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/modalbox.js" %}"></script>
 
+    <link href="{% static "controle/css/jqtree.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static "controle/js/jquery.cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "controle/js/tree.jquery.js" %}"></script>
+
     {% block head %}
     {% endblock %}
 </head>
 
 <body>
-<h1 class="page-title">Contas</h1>
 
 <div id="modal-box-container" style="display:none">
     <div id="modal-box"></div>
 </div>
 
-<section id="left-container">
-{% block left_container %}
+<section id="header">
+    <h1 class="page-title">Contas</h1>
+</section>
+
+<section id="left-panel">
+{% block left_panel %}
+<div id="tree" data-url="{% url controle.views.contras_tree %}"></div>
+
+<script type="text/javascript" charset="utf-8">
+    $(window).ready(function() {
+        $('#tree').tree({
+            autoOpen: 0,
+            autoEscape: false
+        });
+    });
+</script>
+
 {% endblock %}
 </section>
 

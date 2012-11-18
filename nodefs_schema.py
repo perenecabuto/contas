@@ -12,18 +12,18 @@ today = date.today()
 schema = {
     'default': profile([
 
-        absnode(StaticSelector('contas_deste_mes'), [
+        absnode(QuerySetSelector('contas_deste_mes', Controle.objects.filter(mes=today.month, ano=today.year)), [
             absnode(
-                QuerySetSelector('%(nome)s (%(status)s)', Conta.objects.filter(controle__mes=today.month, controle__ano=today.year)), [
+                ModelSelector('%(nome)s (%(status)s)', Conta), [
                     absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo'), writable=True),
                 ]
             ),
         ]),
 
 
-        absnode(StaticSelector('do_mes_passado'), [
+        absnode(QuerySetSelector('do_mes_passado', Controle.objects.filter(mes=today.month - 1, ano=today.year)), [
             absnode(
-                QuerySetSelector('%(nome)s (%(status)s)', Conta.objects.filter(controle__mes=today.month - 1, controle__ano=today.year)), [
+                ModelSelector('%(nome)s (%(status)s)', Conta), [
                     absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo'), writable=True),
                 ]
             ),

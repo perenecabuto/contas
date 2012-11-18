@@ -112,3 +112,50 @@ def registrar_pagamento(request, mes, ano, nome):
         reverse(editar, kwargs={'mes': conta.controle.mes, 'ano': conta.controle.ano})
     )
 
+
+def contras_tree(request):
+    import json
+
+    from django.http import HttpResponse
+    from django.core.urlresolvers import reverse
+
+    from nodefs.lib.model import NodeManager
+    from nodefs.lib import conf
+
+    from django_nodefs.selectors import ModelSelector, ModelFileSelector
+
+    from contas import nodefs_schema
+
+    conf.node_profiles = nodefs_schema.schema
+    root_node = NodeManager().search_by_path('/')
+
+    def build_tree(node):
+        tree = {'label': node.pattern, 'children': []}
+
+        nodeselector = node.abstract_node.selector
+
+        if isinstance(nodeselector, ModelSelector):
+            obj = nodeselector.get_object(node)
+            url = None
+
+            if issubclass(nodeselector.model_class, Controle):
+                url = reverse('controle.views.editar', kwargs={'mes': obj.mes, 'ano': obj.ano})
+
+            elif issubclass(nodeselector.model_class, Conta) and isinstance(nodeselector, ModelFileSelector):
+                url = obj.arquivo.url
+
+            if url:
+                tree['label'] = "<a href='%s'>%s</a>" % (url, node.pattern)
+
+        for cnode in node.children:
+            tree['children'].append(build_tree(cnode))
+
+        if not tree['children']:
+            del tree['children']
+
+        return tree
+
+    data = build_tree(root_node)
+    data['label'] = "/"
+
+    return HttpResponse(json.dumps([data]), mimetype='application/json')
