@@ -19,6 +19,13 @@ class Controle(models.Model):
     def get_date(self):
         return date(self.ano, self.mes, 1)
 
+    @property
+    def month_name(self):
+        import locale
+        locale.setlocale(locale.LC_ALL, 'pt_BR')
+
+        return self.get_date().strftime('%B')
+
     @classmethod
     def get_current(self):
         return self.objects.get_or_create(ano=date.today().year, mes=date.today().month)[0]

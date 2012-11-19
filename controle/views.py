@@ -9,11 +9,6 @@ from forms import ContaForm, ControleForm, UploadContaForm
 from datetime import datetime
 
 
-def index(request):
-    controles = Controle.objects.all()
-    return render_to_response('controle/index.html', {'controles': controles})
-
-
 def mes_corrente(request):
     controle = Controle.get_current()
 
@@ -78,7 +73,7 @@ def salvar(request):
             reverse(editar, kwargs={'mes': controle.mes, 'ano': controle.ano})
         )
     except:
-        return novo(request)
+        return editar(request, controle.mes, controle.ano)
 
 
 @csrf_protect

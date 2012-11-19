@@ -25,7 +25,8 @@ $(window).ready(function() {
 </script>
 {% endblock %}
 
-{% block left_container %}
+{% block left_panel %}
+    <a href="{% url controle.views.novo %}" class="openonmodalbox">Novo</a>
     {{ block.super }}
 {% endblock %}
 
