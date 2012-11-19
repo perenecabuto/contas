@@ -24,7 +24,7 @@ class Controle(models.Model):
         import locale
         locale.setlocale(locale.LC_ALL, 'pt_BR')
 
-        return self.get_date().strftime('%B')
+        return self.get_date().strftime('%b')
 
     @classmethod
     def get_current(self):
