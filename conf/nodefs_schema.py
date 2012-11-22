@@ -55,7 +55,7 @@ schema = {
         ]),
 
         absnode(StaticSelector('outros_anos'), [
-            absnode(QuerySetSelector('%(ano)s', Controle.objects.extra(where=["ano < strftime('%%Y', date('now'))"])), [
+            absnode(QuerySetSelector('%(ano)s', Controle.objects.extra(where=["ano < strftime('%%Y', date('now'))"]).order_by('-ano')), [
                 absnode(ModelSelector('%(mes)s-%(month_name)s', Controle), [
                     absnode(
                         ModelSelector('%(nome)s (%(status)s)', Conta), [
@@ -64,6 +64,18 @@ schema = {
                     ),
                 ]),
             ]),
+        ]),
+
+        absnode(StaticSelector('separadas por tipo'), [
+            absnode(
+                QuerySetSelector('%(nome)s', Conta.objects.order_by('nome')), [
+                    absnode(QuerySetSelector('%(ano)s %(mes)s-%(month_name)s', Controle.objects.order_by('-ano')), [
+
+                        absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo')),
+
+                    ]),
+                ]
+            ),
         ])
 
     ]),

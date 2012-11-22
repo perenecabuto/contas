@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
+
 from models import Controle, Conta
 from forms import ContaForm, ControleForm, UploadContaForm
 from datetime import datetime
@@ -119,7 +120,7 @@ def contras_tree(request):
 
     from django_nodefs.selectors import ModelSelector, ModelFileSelector
 
-    from contas import nodefs_schema
+    from contas.conf import nodefs_schema
 
     conf.node_profiles = nodefs_schema.schema
     root_node = NodeManager().search_by_path('/')
