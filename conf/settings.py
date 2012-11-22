@@ -23,6 +23,9 @@ DATABASES = {
     }
 }
 
+# NodeFs
+NODEFS_PROFILE_MODULE = 'conf.nodefs_schema'
+
 TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt_BR'
 
