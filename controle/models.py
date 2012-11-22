@@ -22,9 +22,9 @@ class Controle(models.Model):
     @property
     def month_name(self):
         import locale
-        locale.setlocale(locale.LC_ALL, 'pt_BR')
+        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-        return self.get_date().strftime('%b')
+        return self.get_date().strftime('%B')
 
     @classmethod
     def get_current(self):
