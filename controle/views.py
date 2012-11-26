@@ -109,10 +109,22 @@ def registrar_pagamento(request, mes, ano, nome):
     )
 
 
-def contras_tree(request):
-    import json
+def tree_widget(request):
+    return render_to_response('controle/tree_widget.html', {
+        'tree': tree()
+    })
 
+
+def tree_json(request):
+    import json
     from django.http import HttpResponse
+
+    data = tree()
+
+    return HttpResponse(json.dumps(data['children']), mimetype='application/json')
+
+
+def tree():
     from django.core.urlresolvers import reverse
 
     from nodefs.lib.model import NodeManager
@@ -126,7 +138,7 @@ def contras_tree(request):
     root_node = NodeManager().search_by_path('/')
 
     def build_tree(node):
-        tree = {'label': node.pattern, 'children': []}
+        tree = {'id': node.id, 'label': node.pattern, 'children': []}
 
         nodeselector = node.abstract_node.selector
 
@@ -151,7 +163,5 @@ def contras_tree(request):
 
         return tree
 
-    data = build_tree(root_node)
-    data['label'] = "/"
+    return build_tree(root_node)
 
-    return HttpResponse(json.dumps([data]), mimetype='application/json')

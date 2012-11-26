@@ -87,16 +87,18 @@ ROOT_URLCONF = 'conf.urls'
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )
 
 TEMPLATE_DIRS = (
-    'templates/'
+    'templates/',
 )
 
 INSTALLED_APPS = (
@@ -123,13 +125,19 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+
+        'django.db.backends': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     },
 
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
             #'formatter': 'brief',
-            'level': DEBUG,
+            'level': 'DEBUG',
             'stream': 'ext://sys.stdout',
         },
 
@@ -138,8 +146,9 @@ LOGGING = {
             #'formatter': 'precise',
             'filename': 'log/server.log',
             'maxBytes': '5000000',
-            'level': DEBUG,
+            'level': 'DEBUG',
             'backupCount': '3',
         },
     },
 }
+

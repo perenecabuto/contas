@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <html>
 
 <head>
@@ -10,14 +9,12 @@
     <link href="{% static "controle/css/jquery-ui.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "controle/css/modalbox.css" %}" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/widgets.css" %}"/>
-
     <script type="text/javascript" src="{% static "controle/js/jquery.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/jquery-ui.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/clear-form.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/modalbox.js" %}"></script>
+    <script type="text/javascript" src="{% static "controle/js/nodes_tree.js" %}"></script>
 
-    <link href="{% static "controle/css/jqtree.css" %}" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{% static "controle/js/jquery.cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "controle/js/tree.jquery.js" %}"></script>
 
@@ -37,14 +34,11 @@
 
 <section id="left-panel">
 {% block left_panel %}
-<div id="tree" data-url="{% url controle.views.contras_tree %}"></div>
+<div id="tree" data-url="{% url controle.views.tree_json %}"></div>
 
 <script type="text/javascript" charset="utf-8">
     $(window).ready(function() {
-        $('#tree').tree({
-            autoOpen: 0,
-            autoEscape: false
-        });
+        $('#tree').nodesTree();
     });
 </script>
 

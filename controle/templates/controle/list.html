@@ -1,37 +1,5 @@
-{# load nodefs_tree #}
-
-{% extends "controle/base.html" %}
-
-{% block head %}
-<script type="text/javascript">
-$(window).ready(function() {
-    $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-
-    $(".nova-conta").on('click', function() {
-        $("#form-nova-conta").show();
-        return false;
-    });
-
-    $(".cancelar-nova-conta").on('click', function() {
-        console.log(this);
-        $("#form-nova-conta").hide().clearForm();
-        return false;
-    });
-
-    $('input[type=button][href]').on('click', function() {
-        location.href = $(this).attr('href');
-    });
-});
-</script>
-{% endblock %}
-
-{% block left_panel %}
-    <!--<a href="{% url controle.views.novo %}" class="openonmodalbox">Novo</a>-->
-    {{ block.super }}
-{% endblock %}
-
 {% block panel_title %}
-Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ controle.get_date|date:"Y" }}</strong>
+    Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ controle.get_date|date:"Y" }}</strong>
 {% endblock %}
 
 {% block actions %}
@@ -97,3 +65,4 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
 </ul>
 
 {% endblock %}
+

@@ -18,7 +18,7 @@ body {
     font-size: 16px;
     padding: 20px;
     margin: 0;
-    background-color: #e6e6e6;
+    background-color: #fdfdfd;
     color: #333;
 }
 
@@ -198,3 +198,61 @@ label {
 form {
     margin-bottom: 20px;
 }
+
+
+/* Tree */
+.nodefs {
+    position: absolute;
+    margin: auto auto;
+    height: 90%;
+    overflow: auto;
+}
+
+.nodefs .tree {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.nodefs .tree .node {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.nodefs .tree .node a:active {
+    color: #666;
+}
+
+.nodefs .tree .node a {
+    padding-right: 15px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.nodefs .tree .tree {
+    border-left: 1px dashed #444;
+}
+
+.nodefs .tree .node .toggler {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    padding-left: 15px;
+}
+
+.nodefs .tree .node.open .toggler {
+    background-image: url(../img/open_arrow.png);
+}
+
+.nodefs .tree .node.closed .toggler {
+    background-image: url(../img/closed_arrow.png);
+    background-position-y: 2px;
+}
+
+.nodefs .tree .node.closed > .tree {
+    display: none;
+}
+

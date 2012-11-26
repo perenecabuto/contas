@@ -3,11 +3,6 @@
 from django.db import models
 from datetime import date, timedelta
 
-import logging
-l = logging.getLogger('django.db.backends')
-l.setLevel(logging.DEBUG)
-l.addHandler(logging.StreamHandler())
-
 
 class Controle(models.Model):
     ano = models.IntegerField()
