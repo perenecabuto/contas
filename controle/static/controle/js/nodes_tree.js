@@ -20,7 +20,7 @@ NodesTree.prototype = {
     prepareEvents: function() {
         var that = this;
 
-        $('.node .toggler, .node .label').click(function(e) {
+        $('.node .toggler, .node .label').on('click', function(e) {
             var $node = $(this).parent('.node');
 
             if (e.target && e.target.href) {
@@ -36,11 +36,12 @@ NodesTree.prototype = {
             }
         });
 
-        $('.node.selected .label a').click(function() {
+        $('.node.selected .label a').on('click', function() {
+            $('.node.selected .label:eq(0)').trigger('click');
             return false;
         });
 
-        $('[data-tree-collapse-button]').click(function() {
+        $('[data-tree-collapse-button]').on('click', function() {
             $('.node.open').each(function(idx, node) {
                 var $node = $(node);
 

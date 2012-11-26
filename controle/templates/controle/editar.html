@@ -80,6 +80,8 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
             <span>R$ {{ conta.valor }}</span>
         </strong>
 
+        <a href="{% url controle.views.novo %}" class="openonmodalbox"><img src="{% static 'controle/img/cc/black/png/trash_icon&16.png' %}" /></a>
+
         {% if conta.arquivo %}
         <a class="download-account" href="{{ conta.arquivo.url }}" target="_blank"></a>
         {% else %}
