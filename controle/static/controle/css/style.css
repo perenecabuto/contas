@@ -237,6 +237,11 @@ form {
     font-weight: bold;
 }
 
+.nodefs .tree .node.selected > .label a {
+    text-decoration: none;
+    cursor: default;
+}
+
 .nodefs .tree .node {
     margin-bottom: 5px;
     padding-left: 10px;

@@ -20,8 +20,12 @@ NodesTree.prototype = {
     prepareEvents: function() {
         var that = this;
 
-        $('.node .toggler').click(function() {
+        $('.node .toggler, .node .label').click(function(e) {
             var $node = $(this).parent('.node');
+
+            if (e.target && e.target.href) {
+                return;
+            }
 
             if ($node.hasClass('open')) {
                 that.registerNodeClose($node.attr('id'));
@@ -30,9 +34,10 @@ NodesTree.prototype = {
                 that.registerNodeOpen($node.attr('id'));
                 $node.removeClass('closed').addClass('open');
             }
+        });
 
-            console.log($.cookie('nodefs_' + $node.attr('id')), $node.attr('id'));
-
+        $('.node.selected .label a').click(function() {
+            return false;
         });
 
         $('[data-tree-collapse-button]').click(function() {
