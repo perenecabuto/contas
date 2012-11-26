@@ -111,7 +111,7 @@ def registrar_pagamento(request, mes, ano, nome):
 
 def tree_widget(request):
     return render_to_response('controle/tree_widget.html', {
-        'tree': tree()
+        'tree': tree(request)
     })
 
 
@@ -119,12 +119,12 @@ def tree_json(request):
     import json
     from django.http import HttpResponse
 
-    data = tree()
+    data = tree(request)
 
     return HttpResponse(json.dumps(data['children']), mimetype='application/json')
 
 
-def tree():
+def tree(request):
     from django.core.urlresolvers import reverse
 
     from nodefs.lib.model import NodeManager
@@ -154,6 +154,9 @@ def tree():
 
             if url:
                 tree['label'] = "<a href='%s'>%s</a>" % (url, node.pattern)
+
+                if url in request.GET.get('current_url', ''):
+                    tree['selected'] = True
 
         for cnode in node.children:
             tree['children'].append(build_tree(cnode))

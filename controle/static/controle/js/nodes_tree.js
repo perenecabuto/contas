@@ -5,7 +5,7 @@ NodesTree.prototype = {
     renderTree: function(url, parentElement) {
         var that = this;
 
-        $.ajax({ url: url, dataType: 'json' })
+        $.ajax({ url: url, dataType: 'json', data: {current_url: location.href } })
         .success(function(response) {
             var $nodeTree = $('<nav class="nodefs" />');
 
@@ -34,6 +34,15 @@ NodesTree.prototype = {
             console.log($.cookie('nodefs_' + $node.attr('id')), $node.attr('id'));
 
         });
+
+        $('[data-tree-collapse-button]').click(function() {
+            $('.node.open').each(function(idx, node) {
+                var $node = $(node);
+
+                that.registerNodeClose($node.attr('id'));
+                $node.removeClass('open').addClass('closed');
+            });
+        });
     },
 
     nodeIsOpen: function(nodeId) {
@@ -58,8 +67,12 @@ NodesTree.prototype = {
 
         nodeElement.addClass(this.nodeIsOpen(node.id) ? 'open' : 'closed');
 
+        if (node.selected) {
+            nodeElement.addClass('selected');
+        }
+
         if (node.label) {
-            nodeElement.append(node.label);
+            nodeElement.append('<span class="label">' + node.label + '</span>');
         }
 
         if (node.children && node.children.length > 0) {

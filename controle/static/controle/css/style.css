@@ -34,6 +34,19 @@ a {
     color: #333;
 }
 
+input[type=button], button {
+    background-color: #333;
+    border: none;
+    color: #fff;
+    padding: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: normal;
+}
+
 #panel {
     color: #333;
     font-family: "minyanouvellerg", sans-serif;
@@ -46,11 +59,11 @@ a {
     left: 0;
     bottom: 0;
     margin-left: 30px;
-    width: 200px;
+    width: 212px;
 }
 
 section {
-    margin-left: 200px;
+    margin-left: 220px;
 }
 
 .topic {
@@ -147,13 +160,13 @@ a.status-and-action,
 a.download-account,
 a.upload-account
 {
-    padding-top: 6px;
-    padding-right: 26px;
-    padding-bottom: 4px;
-    margin-right: 5px;
 }
 
 .status-and-action {
+    padding-top: 6px;
+    margin-right: 5px;
+    padding-bottom: 4px;
+    padding-right: 26px;
     width: 200px;
     text-align: left;
 }
@@ -162,17 +175,22 @@ a.upload-account
 .upload-account
 {
     width: 33px;
+
+    padding-right: 23px;
+    padding-top: 2px;
+    padding-bottom: 0;
+    margin-right: 0;
+
+    background-color: transparent;
+    background-repeat: no-repeat;
 }
 
 .download-account {
-    background-image: url(../img/download.png);
-    background-repeat: no-repeat;
-    background-position-y: -2px;
+    background-image: url(../img/cc/black/png/download_icon&16.png);
 }
 
 .upload-account {
-    background-image: url(../img/upload.png);
-    background-repeat: no-repeat;
+    background-image: url(../img/cc/black/png/save_icon&16.png);
 }
 
 /* Form */
@@ -196,7 +214,7 @@ label {
 }
 
 form {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 
@@ -214,8 +232,12 @@ form {
     margin-bottom: 10px;
 }
 
-.nodefs .tree .node {
+
+.nodefs .tree .node.selected > .label {
     font-weight: bold;
+}
+
+.nodefs .tree .node {
     margin-bottom: 5px;
     padding-left: 10px;
     cursor: pointer;
@@ -260,5 +282,22 @@ form {
 
 .nodefs .tree .node.closed > .tree {
     display: none;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background: #f6f6f6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 

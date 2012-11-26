@@ -1,6 +1,7 @@
-{# load nodefs_tree #}
-
 {% extends "controle/base.html" %}
+
+{# load nodefs_tree #}
+{% load staticfiles %}
 
 {% block head %}
 <script type="text/javascript">
@@ -26,7 +27,8 @@ $(window).ready(function() {
 {% endblock %}
 
 {% block left_panel %}
-    <!--<a href="{% url controle.views.novo %}" class="openonmodalbox">Novo</a>-->
+    <a href="{% url controle.views.novo %}" class="openonmodalbox"><img src="{% static 'controle/img/cc/black/png/doc_new_icon&16.png' %}" /></a>
+    <img src="{% static 'controle/img/cc/black/png/round_and_up_icon&16.png' %}" data-tree-collapse-button="true" />
     {{ block.super }}
 {% endblock %}
 
@@ -37,19 +39,21 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
 {% block actions %}
 <ul>
     <li>
-        <a href="" class="nova-conta">Novo</a>
+        <a href="" class="nova-conta">
+            <img src="{% static 'controle/img/cc/black/png/doc_plus_icon&16.png' %}" /> adicionar
+        </a>
     </li>
-    <li>
-        <ul class="list-select-order">
-            <li>
-                <a href="#order-by-account-label">Ordem alfabética</a>
-            </li>
+    <!--<li>-->
+        <!--<ul class="list-select-order">-->
+            <!--<li>-->
+                <!--<a href="#order-by-account-label">Ordem alfabética</a>-->
+            <!--</li>-->
 
-            <li>
-                <a href="#order-by-priority">Por prioridade</a>
-            </li>
-        </ul>
-    </li>
+            <!--<li>-->
+                <!--<a href="#order-by-priority">Por prioridade</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
 </ul>
 {% endblock %}
 
@@ -63,6 +67,7 @@ Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ 
     {% csrf_token %}
     {{ form.as_p }}
 
+    <br />
     <button class="salvar-nova-conta">Salvar</button>
     <input type="button" class="cancelar-nova-conta" value="Cancelar" />
 </form>
