@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from nodefs.lib.shortcuts import profile, absnode
-from controle.models import Conta, Controle
+from controle.models import Conta, Controle, User, Possession
 
 from nodefs.lib.selectors import StaticSelector
 from django_nodefs.selectors import ModelSelector, ModelFileSelector, QuerySetSelector
@@ -11,6 +11,27 @@ today = date.today()
 
 schema = {
     'default': profile([
+
+        absnode(StaticSelector('users'), [
+            absnode(ModelSelector('%(username)s', User), [
+
+                absnode(
+                    QuerySetSelector(
+                        'deste_mes',
+                        Controle.objects.extra(where=["mes = strftime('%%m', date('now')) and ano = strftime('%%Y', date('now'))"])
+                    ), [
+
+                        #absnode(
+                            #ModelSelector('%(nome)s (%(status)s)', Conta), [
+                                #absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo'), writable=True),
+                            #]
+                        #),
+
+                    ]
+                ),
+
+            ]),
+        ]),
 
         absnode(
             QuerySetSelector(
