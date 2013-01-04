@@ -2,11 +2,13 @@
 
 from django.db import models
 from datetime import date, timedelta
+from django.contrib.auth.models import User
 
 
 class Controle(models.Model):
     ano = models.IntegerField()
     mes = models.IntegerField()
+    owner = models.ForeignKey(User)
 
     def __unicode__(self):
         return "%02d-%04d" % (self.mes, self.ano)
@@ -71,3 +73,5 @@ class Conta(models.Model):
     def registrar_pagamento(self):
         self.data_pagamento = date.today()
         self.save()
+
+

@@ -1,0 +1,23 @@
+<div class="explain topic">
+    Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ controle.get_date|date:"Y" }}</strong>
+
+</div>
+
+<nav class="action-items">
+    {% block actions %}{% endblock %}
+</nav>
+
+<div class="messages">
+    {{ user.username }}
+    <a href='{% url django.contrib.auth.views.logout %}'>(logout)</a>
+    {% block message %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock %}
+</div>
+

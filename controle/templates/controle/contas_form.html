@@ -1,0 +1,12 @@
+<form action="{% url controle.views.salvar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}"
+    id="form-nova-conta"
+    {% if not form.errors %}style="display: none"{% endif %}
+    method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <br />
+    <button class="salvar-nova-conta">Salvar</button>
+    <input type="button" class="cancelar-nova-conta" value="Cancelar" />
+</form>

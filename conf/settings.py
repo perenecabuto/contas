@@ -23,8 +23,24 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'me@gmail.com'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'me@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
+
+# Login
+LOGIN_REDIRECT_URL = '/'
+
 # NodeFs
 NODEFS_PROFILE_MODULE = 'conf.nodefs_schema'
+#NODEFS_TREE_DEFAULT_PATH = '/users/perenecabuto'
+#NODEFS_TREE_DYNAMIC_PATH_CALLBACK = 'controle.callbacks.get_current_user_path'
+NODEFS_TREE_DISCOVER_URL_CALLBACK = 'controle.callbacks.get_node_url'
 
 TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt_BR'
@@ -50,14 +66,11 @@ STATICFILES_FINDERS = (
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
 
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.filesystem.Loader',
-    #'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +82,25 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    'possessions.middleware.AuthRequiredMiddleware',
 )
+
+
+# Auth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'possessions.auth.OpenIDBackend',
+)
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+OPENID_SSO_SERVER_URL = 'https://www.google.com/accounts/o8/id'
+
+LOGIN_EXEMPT_URLS = ['/login-complete/']
+# EndAuth
+
 
 CACHES = {
     'default': {
@@ -83,7 +114,6 @@ JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_contas'
 
 ROOT_URLCONF = 'conf.urls'
 
-# Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -104,16 +134,37 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.admindocs',
 
-    'contas.controle',
+    #'registration',
+    'debug_toolbar',
+    'django_openid_auth',
+
+    'controle',
     'django_nodefs',
+    'possessions',
+
+    'alert',
 )
+
+
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
+)
+
 
 LOGGING = {
     'version': 1,

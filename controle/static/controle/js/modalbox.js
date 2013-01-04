@@ -35,7 +35,6 @@ var ModalBox = {
         $.ajax({
             url: url,
             success: function(content){
-                console.log(ModalBox.getBox());
                 ModalBox.getBox().html(content);
             }
         });

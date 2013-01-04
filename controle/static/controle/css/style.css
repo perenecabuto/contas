@@ -24,10 +24,14 @@ body {
 
 h1.page-title {
     /*font-family: "BlackBoard";*/
-    font-size: 80px;
+    font-size: 46px;
     margin-bottom: 20px;
     font-weight: normal;
     color: #444;
+}
+
+#header {
+    margin-left: 0;
 }
 
 a {
@@ -47,6 +51,8 @@ input[type=button], button {
     white-space: normal;
 }
 
+/* Panel */
+
 #panel {
     color: #333;
     font-family: "minyanouvellerg", sans-serif;
@@ -55,7 +61,7 @@ input[type=button], button {
 
 #left-panel {
     position: fixed;
-    top: 150px;
+    top: 86px;
     left: 0;
     bottom: 0;
     margin-left: 30px;
@@ -117,6 +123,20 @@ section {
 
 .action-items > ul li li:first-child {
     display: inline;
+}
+
+/* Messages */
+
+.messages {
+    border: 3px double #ededed;
+    padding: 5px;
+    color: #E6E6E6;
+    background-color: #444;
+    opacity: 0.9;
+    border-radius: 5px;
+    max-width: 520px;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 /* account */
@@ -217,79 +237,7 @@ form {
     margin-bottom: 30px;
 }
 
-
-/* Tree */
-.nodefs {
-    position: absolute;
-    margin: auto auto;
-    height: 90%;
-    width: 90%;
-    overflow: auto;
-}
-
-.nodefs .tree {
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-
-.nodefs .tree .node.selected > .label {
-    font-weight: bold;
-}
-
-.nodefs .tree .node.selected > .label a {
-    text-decoration: none;
-    cursor: default;
-}
-
-.nodefs .tree .node {
-    margin-bottom: 5px;
-    padding-left: 10px;
-    cursor: pointer;
-
-   -moz-user-select: none;
-   -webkit-user-select: none;
-   user-select: none;
-   behavior: url(ieUserSelectFix.htc);
-}
-
-.nodefs .tree .node a:active {
-    color: #666;
-}
-
-.nodefs .tree .node a {
-    padding-right: 15px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
-}
-
-.nodefs .tree .tree {
-    border-left: 1px dashed #444;
-}
-
-.nodefs .tree .node .toggler {
-    background-repeat: no-repeat;
-    background-position-x: right;
-    padding-left: 15px;
-}
-
-.nodefs .tree .node.open .toggler {
-    background-image: url(../img/open_arrow.png);
-}
-
-.nodefs .tree .node.closed .toggler {
-    background-image: url(../img/closed_arrow.png);
-    background-position-y: 2px;
-}
-
-.nodefs .tree .node.closed > .tree {
-    display: none;
-}
-
-
+/* Scroll bar */
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;

@@ -1,39 +1,47 @@
-{% block panel_title %}
-    Contas de <strong>{{ controle.get_date|date:"E"|lower }}</strong> de <strong>{{ controle.get_date|date:"Y" }}</strong>
+{% load staticfiles %}
+
+{% include "controle/panel.html" %}
+{% include "controle/contas_form.html" %}
+
+{% block head %}
+<script>
+    $(window).ready(function() {
+        $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+
+        $(".nova-conta").on('click', function() {
+            $("#form-nova-conta").show();
+            return false;
+        });
+
+        $(".cancelar-nova-conta").on('click', function() {
+            $("#form-nova-conta").hide().clearForm();
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
 {% block actions %}
-<ul>
-    <li>
-        <a href="" class="nova-conta">Novo</a>
-    </li>
-    <li>
-        <ul class="list-select-order">
-            <li>
-                <a href="#order-by-account-label">Ordem alfabética</a>
-            </li>
+    <ul>
+        <li>
+            <a href="" class="nova-conta"><img src="{% static 'controle/img/cc/black/png/doc_plus_icon&16.png' %}" />adicionar</a>
+        </li>
 
-            <li>
-                <a href="#order-by-priority">Por prioridade</a>
-            </li>
-        </ul>
-    </li>
-</ul>
+        <!--<li>-->
+            <!--<ul class="list-select-order">-->
+                <!--<li>-->
+                    <!--<a href="#order-by-account-label">Ordem alfabética</a>-->
+                <!--</li>-->
+
+                <!--<li>-->
+                    <!--<a href="#order-by-priority">Por prioridade</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</li>-->
+    </ul>
+
+    {% include "controle/contas_form.html" %}
 {% endblock %}
-
-{% block content %}
-
-<form action="{% url controle.views.salvar_conta mes=controle.mes ano=controle.ano nome=conta.nome %}"
-    id="form-nova-conta"
-    {% if not form.errors %}style="display: none"{% endif %}
-    method="post" enctype="multipart/form-data">
-
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button class="salvar-nova-conta">Salvar</button>
-    <input type="button" class="cancelar-nova-conta" value="Cancelar" />
-</form>
 
 <ul>
 {% for conta in contas %}
@@ -42,6 +50,8 @@
             {{ conta.nome }}
             <span>R$ {{ conta.valor }}</span>
         </strong>
+
+        <a href="{% url controle.views.novo %}" class="openonmodalbox"><img src="{% static 'controle/img/cc/black/png/trash_icon&16.png' %}" /></a>
 
         {% if conta.arquivo %}
         <a class="download-account" href="{{ conta.arquivo.url }}" target="_blank"></a>
@@ -63,6 +73,4 @@
     </li>
 {% endfor %}
 </ul>
-
-{% endblock %}
 

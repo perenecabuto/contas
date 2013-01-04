@@ -1,71 +1,49 @@
 {% load staticfiles %}
+{% load nodefs_tree %}
 
 <html>
 
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-    <link href="{% static "controle/css/reset.css" %}" rel="stylesheet" type="text/css" />
-    <link href="{% static "controle/css/style.css" %}" rel="stylesheet" type="text/css" />
-    <link href="{% static "controle/css/jquery-ui.css" %}" rel="stylesheet" type="text/css" />
-    <link href="{% static "controle/css/modalbox.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "controle/css/reset.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "controle/css/style.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "controle/css/jquery-ui.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "controle/css/modalbox.css" %}" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="{% static "controle/js/jquery.js" %}"></script>
-    <script type="text/javascript" src="{% static "controle/js/jquery-ui.js" %}"></script>
-    <script type="text/javascript" src="{% static "controle/js/clear-form.js" %}"></script>
-    <script type="text/javascript" src="{% static "controle/js/modalbox.js" %}"></script>
-    <script type="text/javascript" src="{% static "controle/js/nodes_tree.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/jquery.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/jquery-ui.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/jquery.cookie.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/clear-form.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/modalbox.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/jquery.pjax.js" %}"></script>
+        <script type="text/javascript" src="{% static "controle/js/main.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "controle/js/jquery.cookie.js" %}"></script>
-    <script type="text/javascript" src="{% static "controle/js/tree.jquery.js" %}"></script>
+        {% block head %}{% endblock %}
+    </head>
 
-    {% block head %}
-    {% endblock %}
-</head>
+    <body>
 
-<body>
+        <div id="modal-box-container" style="display:none">
+            <div id="modal-box"></div>
+        </div>
 
-<div id="modal-box-container" style="display:none">
-    <div id="modal-box"></div>
-</div>
+        <section id="header">
+        <h1 class="page-title">Contas</h1>
+        </section>
 
-<section id="header">
-    <h1 class="page-title">Contas</h1>
-</section>
+        <section id="left-panel">
+        {% block left_panel %}
+            {% render_nodefs_tree %}
+        {% endblock %}
+        </section>
 
-<section id="left-panel">
-{% block left_panel %}
-<div id="tree" data-url="{% url controle.views.tree_json %}"></div>
+        <section id="content">
+        <div data-pjax-container id="base-content-pjax-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        </section>
 
-<script type="text/javascript" charset="utf-8">
-    $(window).ready(function() {
-        $('#tree').nodesTree();
-    });
-</script>
-
-{% endblock %}
-</section>
-
-<section id="panel">
-<div class="explain topic">
-    {% block panel_title %}
-    {% endblock %}
-</div>
-
-<nav class="action-items">
-{% block actions %}
-{% endblock %}
-</nav>
-
-<span class="message"></span>
-{% block message %}
-{% endblock %}
-</section>
-
-<section id="content">
-{% block content %}
-{% endblock %}
-</section>
-
-</body>
+    </body>
 </html>
