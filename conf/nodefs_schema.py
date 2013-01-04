@@ -71,7 +71,7 @@ schema = {
                     ]),
                 ]),
 
-                absnode(ModelSelector('separadas por tipo', Controle), [
+                absnode(StaticSelector('separadas por tipo'), [
                     absnode(
                         QuerySetSelector('%(nome)s', Conta.objects.order_by('nome')), [
                             absnode(QuerySetSelector('%(ano)s %(mes)s-%(month_name)s', Controle.objects.order_by('-ano')), [
