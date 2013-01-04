@@ -10,18 +10,20 @@
 
         $(".nova-conta").on('click', function() {
             $("#form-nova-conta").show();
+            $(this).hide();
             return false;
         });
 
         $(".cancelar-nova-conta").on('click', function() {
             $("#form-nova-conta").hide().clearForm();
+            $(".nova-conta:hidden").show();
             return false;
         });
     });
 </script>
 {% endblock %}
 
-{% block actions %}
+<div class="action-items">
     <ul>
         <li>
             <a href="" class="nova-conta"><img src="{% static 'controle/img/cc/black/png/doc_plus_icon&16.png' %}" />adicionar</a>
@@ -41,7 +43,7 @@
     </ul>
 
     {% include "controle/contas_form.html" %}
-{% endblock %}
+</div>
 
 <ul>
 {% for conta in contas %}

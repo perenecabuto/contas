@@ -3,6 +3,10 @@ $(window).on('ready', function() {
         var container = $('#base-content-pjax-container');
 
         $('#left-panel').on('click', 'a', function(event) {
+            if ( $(this).attr('href').indexOf('/media/') == 0 ) {
+                return;
+            }
+
             event.preventDefault();
 
             if (window.location.href == this.href) {

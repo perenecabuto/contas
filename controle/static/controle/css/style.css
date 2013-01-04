@@ -137,6 +137,7 @@ section {
     max-width: 520px;
     max-height: 100px;
     overflow-y: auto;
+    margin-bottom: 10px;
 }
 
 /* account */

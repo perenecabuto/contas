@@ -2,6 +2,7 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.views.generic.simple import redirect_to
+from django.conf import settings
 
 admin.autodiscover()
 
@@ -21,3 +22,7 @@ urlpatterns = patterns(
     url(r'^nodefs_tree/', include('django_nodefs.urls')),
     #url(r'^notification/', include('notification.urls')),
 )
+
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
