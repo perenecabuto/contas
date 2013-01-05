@@ -64,7 +64,13 @@
         {% endif %}
 
         {% if conta.pago %}
-        <input type="button" name="status_and_action" class="status-and-action" value="Pago dia {{ conta.data_pagamento|date:"d"}}" />
+        <input type="button" name="status_and_action" class="status-and-action" value="
+            {% if conta.foi_pago_este_mes %}
+            Pago dia {{ conta.data_pagamento|date:"d" }}"
+            {% else %}
+            Pago {% if conta.foi_pago_com_atraso %}com atraso{% endif %} em {{ conta.data_pagamento|date:"d/m/Y" }}"
+            {% endif %}
+        />
         {% else %}
 
         <input type="button" name="status_and_action" class="status-and-action" value="Registrar pagamento"
