@@ -16,25 +16,18 @@
 body {
     font-family: "minyanouvellerg", Arial, sans;
     font-size: 16px;
-    padding: 20px;
-    margin: 0;
+    padding-top: 20px;
+    margin: auto auto;
     color: #333;
-
-    background-image: url(/static/controle/img/caderno-bg.png);
-    background-repeat: repeat-y;
-    background-position: -3px 11px;
 }
 
 h1.page-title {
-    /*font-family: "BlackBoard";*/
-    font-size: 46px;
+    font-size: 60px;
     margin-bottom: 20px;
+    margin-top: 20px;
     font-weight: normal;
+    letter-spacing: -1px;
     color: #444;
-}
-
-#header {
-    margin-left: 19px;
 }
 
 a {
@@ -64,7 +57,7 @@ input[type=button], button {
 
 #left-panel {
     position: fixed;
-    top: 86px;
+    top: 0;
     left: 10px;
     bottom: 0;
     margin-left: 30px;
@@ -75,15 +68,21 @@ section {
     margin-left: 220px;
 }
 
+.controle-tree-menu {
+    margin-bottom: 10px;
+}
+
+.nodefs {
+    width: 80% !important;
+}
+
 .topic {
-    color: #E6E6E6;
-    background-color: #444;
-    width: 525px;
-    margin-bottom: 20px;
-    padding: 5px;
-    padding-top: 7px;
-    border-radius: 3px;
-    font-weight: bold;
+    width: 600px;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background-color: #fff;
+    opacity: 0.9;
 }
 
 .action-items ul {
@@ -150,6 +149,10 @@ section {
 
 /* account */
 
+.account-list {
+    margin-top: 110px;
+}
+
 .account {
     width: 545px;
     vertical-align: middle;
@@ -172,23 +175,14 @@ section {
     display: inline-block;
 }
 
-.status-and-action,
-.download-account,
-.upload-account
-{
-    background-color: #333;
-    border: none;
-    color: #fff;
-    padding: 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    white-space: normal;
-}
-
 a.status-and-action,
 a.download-account,
 a.upload-account
 {
+}
+
+a.remove-account {
+    background-image: ur('../img/cc/black/png/trash_icon&16.png');
 }
 
 .status-and-action {

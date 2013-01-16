@@ -19,7 +19,7 @@ schema = {
                 absnode(
                     QuerySetSelector(
                         'deste_mes',
-                        Controle.objects.extra(where=["mes = strftime('%%m', date('now')) and ano = strftime('%%Y', date('now'))"])
+                        Controle.objects.extra(where=["strftime('%%Y%%m', data) = strftime('%%Y%%m', date('now'))"])
                     ), [
                         absnode(
                             ModelSelector('%(nome)s (%(status)s)', Conta), [
@@ -33,7 +33,7 @@ schema = {
                     QuerySetSelector(
                         'mes_passado',
                         Controle.objects.extra(where=[
-                            "mes = strftime('%%m', date('now','start of month','-1 month')) and ano = strftime('%%Y', date('now','start of month','-1 month'))"
+                            "strftime('%%Y%%m', data) = strftime('%%Y%%m', date('now', 'start of month', '-1 month'))"
                         ])
                     ), [
                         absnode(
@@ -47,8 +47,8 @@ schema = {
                 absnode(StaticSelector('este_ano'), [
                     absnode(
                         QuerySetSelector(
-                            '%(mes)s-%(month_name)s',
-                            Controle.objects.extra(where=["mes < strftime('%%m', date('now')) - 1 and ano = strftime('%%Y', date('now'))"])
+                            '%(data.month)s-%(month_name)s',
+                            Controle.objects.extra(where=["strftime('%%Y', data) = strftime('%%Y', date('now'))"])
                         ), [
                             absnode(
                                 ModelSelector('%(nome)s (%(status)s)', Conta), [
@@ -59,22 +59,22 @@ schema = {
                     ),
                 ]),
 
-                absnode(StaticSelector('outros_anos'), [
-                    absnode(QuerySetSelector('%(ano)s', Controle.objects.extra(where=["ano < strftime('%%Y', date('now'))"]).order_by('-ano')), [
-                        absnode(ModelSelector('%(mes)s-%(month_name)s', Controle), [
-                            absnode(
-                                ModelSelector('%(nome)s (%(status)s)', Conta), [
-                                    absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo'), writable=True),
-                                ]
-                            ),
-                        ]),
-                    ]),
-                ]),
+                #absnode(StaticSelector('outros_anos'), [
+                    #absnode(QuerySetSelector('%(data.year)s', Controle.objects.extra(where=["strftime('%%Y', data) < strftime('%%Y', date('now'))"]).order_by('-data')), [
+                        #absnode(ModelSelector('%(data.month)s-%(month_name)s', Controle), [
+                            #absnode(
+                                #ModelSelector('%(nome)s (%(status)s)', Conta), [
+                                    #absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo'), writable=True),
+                                #]
+                            #),
+                        #]),
+                    #]),
+                #]),
 
                 absnode(StaticSelector('separadas por tipo'), [
                     absnode(
                         QuerySetSelector('%(nome)s', Conta.objects.order_by('nome')), [
-                            absnode(QuerySetSelector('%(ano)s %(mes)s-%(month_name)s', Controle.objects.order_by('-ano')), [
+                            absnode(QuerySetSelector('%(data.year)s %(data.month)s-%(month_name)s', Controle.objects.order_by('-data')), [
 
                                 absnode(ModelFileSelector(projection='%(arquivo)s', model_class=Conta, file_field_name='arquivo')),
 

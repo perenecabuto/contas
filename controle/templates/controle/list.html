@@ -1,8 +1,5 @@
 {% load staticfiles %}
 
-{% include "controle/panel.html" %}
-{% include "controle/contas_form.html" %}
-
 {% block head %}
 <script>
     $(window).ready(function() {
@@ -23,29 +20,17 @@
 </script>
 {% endblock %}
 
-<div class="action-items">
-    <ul>
-        <li>
-            <a href="" class="nova-conta"><img src="{% static 'controle/img/cc/black/png/doc_plus_icon&16.png' %}" />adicionar</a>
-        </li>
+{% block content %}
+<div class="topic">
+    <h1 class="page-title">de <strong>{{ controle.data|date:"E"|lower }}</strong> de <strong>{{ controle.ano }}</strong><h1>
 
-        <!--<li>-->
-            <!--<ul class="list-select-order">-->
-                <!--<li>-->
-                    <!--<a href="#order-by-account-label">Ordem alfabética</a>-->
-                <!--</li>-->
-
-                <!--<li>-->
-                    <!--<a href="#order-by-priority">Por prioridade</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</li>-->
-    </ul>
-
-    {% include "controle/contas_form.html" %}
+    <div class="action-items">
+        <a href="" class="nova-conta"><img src="{% static 'controle/img/cc/black/png/doc_plus_icon&16.png' %}" />adicionar</a>
+        {% include "controle/contas_form.html" %}
+    </div>
 </div>
 
-<ul>
+<ul class="account-list">
 {% for conta in contas %}
     <li class="account">
         <strong class="account-name" name="account_label">
@@ -53,7 +38,7 @@
             <span>R$ {{ conta.valor }}</span>
         </strong>
 
-        <a href="{% url controle.views.novo %}" class="openonmodalbox"><img src="{% static 'controle/img/cc/black/png/trash_icon&16.png' %}" /></a>
+        <a href="{% url controle.views.novo %}" class="remove-account openonmodalbox"></a>
 
         {% if conta.arquivo %}
         <a class="download-account" href="{{ conta.arquivo.url }}" target="_blank"></a>
@@ -64,13 +49,13 @@
         {% endif %}
 
         {% if conta.pago %}
-        <input type="button" name="status_and_action" class="status-and-action" value="
-            {% if conta.foi_pago_este_mes %}
-            Pago dia {{ conta.data_pagamento|date:"d" }}"
-            {% else %}
-            Pago {% if conta.foi_pago_com_atraso %}com atraso{% endif %} em {{ conta.data_pagamento|date:"d/m/Y" }}"
-            {% endif %}
-        />
+        <input type="button" name="remove-account" class="status-and-action" value="
+            Pago
+            {% with conta.data_pagamento as dp %}
+            {% if conta.foi_pago_com_atraso %}com atraso{% endif %}
+            {% if conta.foi_pago_este_mes %}dia {{ dp|date:'d' }}{% else %}em {{ dp|date:'d/m/Y' }}{% endif %}
+            {% endwith %}
+        " />
         {% else %}
 
         <input type="button" name="status_and_action" class="status-and-action" value="Registrar pagamento"
@@ -82,3 +67,4 @@
 {% endfor %}
 </ul>
 
+{% endblock %}

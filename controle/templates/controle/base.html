@@ -27,20 +27,16 @@
             <div id="modal-box"></div>
         </div>
 
-        <section id="header">
-        <h1 class="page-title">Contas</h1>
-        </section>
-
         <section id="left-panel">
+        <h1 class="page-title">Contas</h1>
         {% block left_panel %}
-        {% render_nodefs_tree %}
+            {% render_nodefs_tree %}
         {% endblock %}
         </section>
 
         <section id="content">
         <div data-pjax-container id="base-content-pjax-container">
-            {% block content %}
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
         </section>
 

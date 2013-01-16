@@ -1,35 +1,47 @@
 # -*- encoding : utf-8 -*-
 
+from datetime import datetime
+
 from django.db import models
 from datetime import date, timedelta
 from django.contrib.auth.models import User
 
+from .managers import ControleManager
+
 
 class Controle(models.Model):
-    ano = models.IntegerField()
-    mes = models.IntegerField()
+    data = models.DateField(unique_for_month=True)
     owner = models.ForeignKey(User)
+    objects = ControleManager()
 
     def __unicode__(self):
-        return "%02d-%04d" % (self.mes, self.ano)
+        if not self.data:
+            return ""
 
-    def get_date(self):
-        return date(self.ano, self.mes, 1)
+        return "%02d-%04d" % (self.data.month, self.data.year)
+
+    @property
+    def mes(self):
+        if self.data:
+            return self.data.month
+
+    @property
+    def ano(self):
+        if self.data:
+            return self.data.year
 
     @property
     def month_name(self):
         import locale
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-        return self.get_date().strftime('%B')
+        return self.data.strftime('%B')
 
-    @classmethod
-    def get_current(self):
-        return self.objects.get_or_create(ano=date.today().year, mes=date.today().month)[0]
+    def copy_contas_from_previous(self):
+        self.objects.filter()
 
     class Meta:
-        unique_together = ('ano', 'mes')
-        ordering = ['-ano', '-mes']
+        ordering = ['-data']
 
 
 class Conta(models.Model):
@@ -69,6 +81,16 @@ class Conta(models.Model):
     @property
     def venceu(self):
         return bool(date.today() > self.data_vencimento)
+
+    @property
+    def foi_pago_este_mes(self):
+        return self.data_pagamento and datetime.now().strftime('%Y%m') == self.data_pagamento.strftime('%Y%m')
+
+    @property
+    def foi_pago_com_atraso(self):
+        return self.data_pagamento \
+            and self.data_vencimento.year < self.data_pagamento.year \
+            or self.data_vencimento.month < self.data_pagamento.month
 
     def registrar_pagamento(self):
         self.data_pagamento = date.today()
