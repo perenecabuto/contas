@@ -6,14 +6,15 @@
         $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
 
         $(".nova-conta").on('click', function() {
-            $("#form-nova-conta").show();
+            $("#form-nova-conta").fadeIn();
             $(this).hide();
             return false;
         });
 
         $(".cancelar-nova-conta").on('click', function() {
-            $("#form-nova-conta").hide().clearForm();
-            $(".nova-conta:hidden").show();
+            $("#form-nova-conta").fadeOut("fast", function() {
+                $(".nova-conta:hidden").show();
+            }).clearForm();
             return false;
         });
     });

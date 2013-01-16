@@ -52,6 +52,9 @@ def post_handler(sender, **kwargs):
     item = kwargs.get('instance')
 
     if getattr(item, '_register_owner', None) and user:
-        p = Possession(item=item, owner=user)
-        p.save()
+        try:
+            p = Possession(item=item, owner=user)
+            p.save()
+        except:
+            pass
 

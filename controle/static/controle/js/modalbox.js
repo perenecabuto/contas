@@ -1,16 +1,3 @@
-$(window).ready(function () {
-    ModalBox.getContainer().on('click', function(e) {
-        if (e.target == this) {
-            ModalBox.clear();
-        }
-    });
-
-    $('.openonmodalbox').on('click', function(e) {
-        ModalBox.load($(this).attr('href'));
-        return false;
-    });
-});
-
 var ModalBox = {
     getContainer: function() {
         if (!this._container) {
@@ -51,6 +38,22 @@ var ModalBox = {
 
     hide: function() {
         this.getContainer().hide();
+    },
+
+    refresh: function() {
+        $(window).ready(function () {
+            ModalBox.getContainer().on('click', function(e) {
+                if (e.target == this) {
+                    ModalBox.clear();
+                }
+            });
+
+            $('.openonmodalbox:not(.modalbox-ready)').on('click', function(e) {
+                ModalBox.load($(this).attr('href'));
+                return false;
+            }).addClass('modalbox-ready');
+        });
     }
 };
 
+ModalBox.refresh();

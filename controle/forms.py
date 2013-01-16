@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
 from django import forms
 from django.forms.widgets import TextInput
-from django.forms.extras.widgets import SelectDateWidget
 
 from models import Conta
 from models import Controle
+
+from widgets import SelectMonthYearWidget
 
 
 class ContaForm(forms.ModelForm):
@@ -26,7 +27,7 @@ class UploadContaForm(forms.ModelForm):
 
 
 class ControleForm(forms.ModelForm):
-    data = forms.DateField(widget=SelectDateWidget)
+    data = forms.DateField(widget=SelectMonthYearWidget())
 
     class Meta:
         model = Controle

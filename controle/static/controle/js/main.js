@@ -1,8 +1,7 @@
 $(window).on('ready', function() {
     if ($.support.pjax) {
         var container = $('#base-content-pjax-container');
-
-        $('#left-panel').on('click', 'a', function(event) {
+        var keepOnPjax = function(event) {
             if ( $(this).attr('href').indexOf('/media/') == 0 ) {
                 return;
             }
@@ -13,19 +12,26 @@ $(window).on('ready', function() {
                 return;
             }
 
-            $.pjax.click(event, {container: container});
-        });
+            $.pjax({ url: $(this).attr('href'), container: container});
+        };
+
+        $('#left-panel').on('click', 'a', keepOnPjax);
+        $('#content').on('click', '[href]', keepOnPjax);
 
         $(document).on('pjax:send', function() {
-          $('#loading').show();
+            $('#loading').show();
         });
 
         $(document).on('pjax:complete', function() {
-          $('#loading').hide();
+            ModalBox.refresh();
+            $('#loading').hide();
         });
-
+    }
+    else {
         $('input[type=button][href]').on('click', function() {
             location.href = $(this).attr('href');
         });
     }
+
+
 });

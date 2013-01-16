@@ -7,10 +7,11 @@ from datetime import date, timedelta
 from django.contrib.auth.models import User
 
 from .managers import ControleManager
+from . import validators
 
 
 class Controle(models.Model):
-    data = models.DateField(unique_for_month=True)
+    data = models.DateField(validators=[validators.unique_controle_per_month_year])
     owner = models.ForeignKey(User)
     objects = ControleManager()
 
@@ -37,9 +38,6 @@ class Controle(models.Model):
 
         return self.data.strftime('%B')
 
-    def copy_contas_from_previous(self):
-        self.objects.filter()
-
     class Meta:
         ordering = ['-data']
 
@@ -48,8 +46,9 @@ class Conta(models.Model):
     nome = models.CharField(max_length=128)
     dia_vencimento = models.PositiveIntegerField(choices=((i, i) for i in range(1, 32)))
     valor = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    arquivo = models.FileField(upload_to='contas/%Y-%m-%d', blank=True, null=True)
+    valor_pago = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     data_pagamento = models.DateField(blank=True, null=True)
+    arquivo = models.FileField(upload_to='contas/%Y-%m-%d', blank=True, null=True)
     controle = models.ForeignKey(Controle, blank=True)
 
     class Meta:
