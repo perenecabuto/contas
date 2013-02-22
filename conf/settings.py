@@ -28,7 +28,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'me@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'me@gmail.com'
+DEFAULT_FROM_EMAIL = 'lukazupareli@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'

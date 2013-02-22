@@ -1,33 +1,43 @@
-@font-face {
-    font-family: "minyanouvellerg";
-    src: url(../fonts/minyanouvellerg.ttf) format(truetype);
-}
 
-@font-face {
-    font-family: "SimplyChalky";
-    src: url(../fonts/SimplyChalky.ttf) format(truetype);
-}
-
-@font-face {
-    font-family: "BlackBoard";
-    src: url(../fonts/BlackBoard.ttf) format(truetype);
-}
+@import url(fonts.css);
+/*@import url(http://fonts.googleapis.com/css?family=Imprima);*/
+/*@import url(http://fonts.googleapis.com/css?family=Anaheim);*/
+/*@import url(http://fonts.googleapis.com/css?family=Syncopate);*/
+/*@import url(http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic);*/
 
 body {
-    font-family: "minyanouvellerg", Arial, sans;
-    font-size: 16px;
-    padding-top: 20px;
+    /*font-family: "Karla", Arial, sans;*/
+    /*font-family: "Anaheim", Arial, sans;*/
+    /*font-family: "minyanouvellerg", Arial, sans;*/
+
+    font-family: "Roboto Condensed", Arial, sans;
+    font-size: 14px;
+    font-weight: 100;
     margin: auto auto;
     color: #333;
 }
 
+.main-container {
+    width: 800px;
+    position: relative;
+}
+
 h1.page-title {
-    font-size: 60px;
+    position: fixed;
+    top: 0;
+    left: 28px;
+    right: 0;
     margin-bottom: 20px;
-    margin-top: 20px;
-    font-weight: normal;
-    letter-spacing: -1px;
+    width: 800px;
+
     color: #444;
+    background-color: #fff;
+    font-size: 58px;
+    font-weight: normal;
+    letter-spacing: -2px;
+    opacity: 0.95;
+    border-bottom: 1px solid #fafafa;
+    z-index: 1;
 }
 
 a {
@@ -37,12 +47,8 @@ a {
 input[type=button], button {
     background-color: #333;
     border: none;
-    color: #fff;
-    padding: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-
-    border-radius: 3px;
+    color: #fafafa;
+    border-radius: 2px;
     cursor: pointer;
     white-space: normal;
 }
@@ -51,21 +57,26 @@ input[type=button], button {
 
 #panel {
     color: #333;
-    font-family: "minyanouvellerg", sans-serif;
     margin-bottom: 30px;
 }
 
 #left-panel {
-    position: fixed;
-    top: 0;
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
     left: 10px;
-    bottom: 0;
+    padding-top: 90px;
     margin-left: 30px;
+
     width: 212px;
+    float: left;
+    min-height: 300px;
+    height: 70/
 }
 
-section {
-    margin-left: 220px;
+#content {
+    padding-top: 90px;
+    /*margin-left: 220px;*/
 }
 
 .controle-tree-menu {
@@ -73,16 +84,20 @@ section {
 }
 
 .nodefs {
-    width: 80% !important;
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: 15px;
+    padding-right: 15px;
+}
+
+.nodefs > .tree > .node > .label {
+    text-transform: uppercase;
 }
 
 .topic {
-    width: 600px;
-    position: fixed;
-    top: 0;
     z-index: 2;
-    background-color: #fff;
-    opacity: 0.9;
+    margin-bottom: 12px;
 }
 
 .action-items ul {
@@ -150,11 +165,10 @@ section {
 /* account */
 
 .account-list {
-    margin-top: 110px;
+    display: inline-block;
 }
 
 .account {
-    width: 545px;
     vertical-align: middle;
     margin-bottom: 15px;
     padding-bottom: 15px;
@@ -186,24 +200,21 @@ a.remove-account {
 }
 
 .status-and-action {
-    padding-top: 6px;
-    margin-right: 5px;
-    padding-bottom: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     padding-right: 26px;
     width: 200px;
-    text-align: left;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 0;
+    padding-bottom: 1px;
 }
 
 .download-account,
 .upload-account
 {
     width: 33px;
-
-    padding-right: 23px;
-    padding-top: 2px;
-    padding-bottom: 0;
-    margin-right: 0;
-
+    padding: 0 23px 0 0;
     background-color: transparent;
     background-repeat: no-repeat;
 }
@@ -214,6 +225,7 @@ a.remove-account {
 
 .upload-account {
     background-image: url(../img/cc/black/png/save_icon&16.png);
+    background-position: 0 2px;
 }
 
 /* Form */

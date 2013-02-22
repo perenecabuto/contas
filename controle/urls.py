@@ -9,8 +9,8 @@ urlpatterns = patterns(
     url(r'^novo$', 'controle.views.novo'),
     url(r'^salvar$', 'controle.views.salvar'),
 
-    url(r'^(?P<mes>\d{1,2})/(?P<ano>\d{4})/?$', 'controle.views.editar'),
-    url(r'^(?P<mes>\d{1,2})/(?P<ano>\d{4})/salvar_conta/(?P<nome>[\w -]+)?/?$', 'controle.views.salvar_conta'),
-    url(r'^(?P<mes>\d{1,2})/(?P<ano>\d{4})/registrar_pagamento/(?P<nome>[\w  -]+)?/?$', 'controle.views.registrar_pagamento'),
-    url(r'^(?P<mes>\d{1,2})/(?P<ano>\d{4})/upload_conta/(?P<nome>[\w -]+)?/?$', 'controle.views.upload_conta'),
+    url(r'^(?P<ano>\d{4})/(?P<mes>\d{1,2})/?$', 'controle.views.editar'),
+    url(r'^(?P<ano>\d{4})/(?P<mes>\d{1,2})/salvar_conta/(?P<nome>[\w -]+)?/?$', 'controle.views.salvar_conta'),
+    url(r'^(?P<ano>\d{4})/(?P<mes>\d{1,2})/registrar_pagamento/(?P<nome>[\w  -]+)?/?$', 'controle.views.registrar_pagamento'),
+    url(r'^(?P<ano>\d{4})/(?P<mes>\d{1,2})/upload_conta/(?P<nome>[\w -]+)?/?$', 'controle.views.upload_conta'),
 )

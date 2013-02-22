@@ -22,13 +22,13 @@
     </head>
 
     <body>
+    <div class="main-container">
 
         <div id="modal-box-container" style="display:none">
             <div id="modal-box"></div>
         </div>
 
         <section id="left-panel">
-        <h1 class="page-title">Contas</h1>
         {% block left_panel %}
             {% render_nodefs_tree %}
         {% endblock %}
@@ -39,7 +39,7 @@
             {% block content %}{% endblock %}
         </div>
         </section>
-
+    </div>
     </body>
 </html>
 

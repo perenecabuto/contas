@@ -19,12 +19,14 @@ $(window).on('ready', function() {
         $('#content').on('click', '[href]', keepOnPjax);
 
         $(document).on('pjax:send', function() {
+            $('#content').css({'opacity': 0.5});
             $('#loading').show();
         });
 
         $(document).on('pjax:complete', function() {
             ModalBox.refresh();
             $('#loading').hide();
+            $('#content').animate({'opacity': 1}, 'slow');
         });
     }
     else {
