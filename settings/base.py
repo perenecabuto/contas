@@ -8,7 +8,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-WSGI_APPLICATION = 'conf.'
+#WSGI_APPLICATION = ''
 
 MANAGERS = ADMINS
 
@@ -29,8 +29,7 @@ EMAIL_HOST_USER = 'me@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'lukazupareli@gmail.com'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django_sendmail_backend.EmailBackend'
+EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 
 SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
 
@@ -38,7 +37,7 @@ SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
 LOGIN_REDIRECT_URL = '/'
 
 # NodeFs
-NODEFS_PROFILE_MODULE = 'conf.nodefs_schema'
+NODEFS_PROFILE_MODULE = 'settings.nodefs_schema'
 #NODEFS_TREE_DEFAULT_PATH = '/users/perenecabuto'
 #NODEFS_TREE_DYNAMIC_PATH_CALLBACK = 'controle.callbacks.get_current_user_path'
 NODEFS_TREE_DISCOVER_URL_CALLBACK = 'controle.callbacks.get_node_url'
@@ -107,11 +106,9 @@ CACHES = {
     }
 }
 
-JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_contas'
+ROOT_URLCONF = 'urls'
 
-ROOT_URLCONF = 'conf.urls'
-
-WSGI_APPLICATION = 'conf.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',

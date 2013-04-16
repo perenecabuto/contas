@@ -4,3 +4,4 @@ media/*/*
 log/*
 store/*
 mnt/*
+db/*sqlite3

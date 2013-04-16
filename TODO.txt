@@ -1,0 +1,14 @@
+- Controles por usuarios
+- Tela de login e pagina principal
+- Mailers para eventos com template amigavel
+- Refatorar views para usar CBV
+- Interface responsiva
+- Internacionalizar
+- Filesystem SMB over Internet
+
+- Criar app com phonegap
+- Maquina de estados decente e separar mensagens dos models
+- Traduzir modelos, arquivos e objetos para ingles
+- Separar possessions em um EGG separado e subir para o pypi
+
+- Deploy =)
