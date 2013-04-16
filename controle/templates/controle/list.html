@@ -39,13 +39,13 @@
             <span>R$ {{ conta.valor }}</span>
         </strong>
 
-        <a href="{% url controle.views.novo %}" class="remove-account openonmodalbox"></a>
+        <a href="{% url "controle.views.novo" %}" class="remove-account openonmodalbox"></a>
 
         {% if conta.arquivo %}
         <a class="download-account" href="{{ conta.arquivo.url }}" target="_blank"></a>
         {% else %}
         <a class="upload-account openonmodalbox"
-            href='{% url controle.views.upload_conta ano=controle.ano mes=controle.mes nome=conta.nome %}'
+            href='{% url "controle.views.upload_conta" ano=controle.ano mes=controle.mes nome=conta.nome %}'
         ></a>
         {% endif %}
 
@@ -60,7 +60,7 @@
         {% else %}
 
         <input type="button" name="status_and_action" class="status-and-action" value="Registrar pagamento"
-            href='{% url controle.views.registrar_pagamento ano=controle.ano mes=controle.mes nome=conta.nome %}'
+            href='{% url "controle.views.registrar_pagamento" ano=controle.ano mes=controle.mes nome=conta.nome %}'
         />
 
         {% endif %}

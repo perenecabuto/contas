@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+import locale
 from datetime import datetime
 
 from django.db import models
@@ -14,6 +15,9 @@ class Controle(models.Model):
     data = models.DateField(validators=[validators.unique_controle_per_month_year])
     owner = models.ForeignKey(User)
     objects = ControleManager()
+
+    class Meta:
+        ordering = ['-data']
 
     def __unicode__(self):
         if not self.data:
@@ -33,13 +37,9 @@ class Controle(models.Model):
 
     @property
     def month_name(self):
-        import locale
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
         return self.data.strftime('%B')
-
-    class Meta:
-        ordering = ['-data']
 
 
 class Conta(models.Model):
@@ -52,7 +52,7 @@ class Conta(models.Model):
     controle = models.ForeignKey(Controle, blank=True)
 
     class Meta:
-        unique_together = ('nome', 'controle')
+        unique_together = (('nome', 'controle'),)
 
     def __unicode__(self):
         return self.nome

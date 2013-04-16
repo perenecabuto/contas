@@ -29,7 +29,8 @@ EMAIL_HOST_USER = 'me@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'lukazupareli@gmail.com'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django_sendmail_backend.EmailBackend'
 
 SECRET_KEY = 'b&g+#fttt31h#h!8!w055!9)o-l_q6)8j)+_qnyyx%s!t@(h!v'
 
@@ -74,9 +75,6 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'johnny.middleware.LocalStoreClearMiddleware',
-    'johnny.middleware.QueryCacheMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -104,9 +102,8 @@ LOGIN_EXEMPT_URLS = ['/login-complete/']
 
 CACHES = {
     'default': {
-        'BACKEND': 'johnny.backends.memcached.MemcachedCache',
-        'LOCATION': ['127.0.0.1:11211'],
-        'JOHNNY_CACHE': False,
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
     }
 }
 

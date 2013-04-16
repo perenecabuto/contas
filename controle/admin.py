@@ -13,5 +13,6 @@ class ControleAdmin(admin.ModelAdmin):
     class Meta:
         model = Controle
 
+
 admin.site.register(Conta, ContaAdmin)
 admin.site.register(Controle, ControleAdmin)

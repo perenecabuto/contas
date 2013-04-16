@@ -28,13 +28,3 @@ def copy_contas_from_previous(sender, **kwargs):
         current.conta_set.add(new_conta)
 
     current.save()
-
-
-#from django.core.signals import request_finished
-#from django.core.handlers.wsgi import WSGIRequest
-#@receiver(request_finished, dispatch_uid="ovo")
-#def terminou(sender, **kwargs):
-    #print "-" * 100
-    #print "finished"
-    #print "-" * 100
-
